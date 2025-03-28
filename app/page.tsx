@@ -1,120 +1,12 @@
 "use client";
-
-import Message from "@/components/chat/Message";
-import TextField from "@/components/chat/TextField";
-import { parseDate, parseThink } from "@/utils/parsers";
-import { useChat } from "@ai-sdk/react";
-import { useEffect, useRef, useState } from "react";
+import ChatContainer from "@/components/layout/ChatContainer";
+import Sidebar from "@/components/layout/Sidebar";
 
 export default function Chat() {
-    const scrollRef = useRef<HTMLDivElement>(null);
-    const [isAutoScroll, setIsAutoScroll] = useState(true);
-    const {
-        messages,
-        input,
-        handleInputChange,
-        handleSubmit,
-        status,
-        stop,
-        error,
-        reload,
-        id,
-    } = useChat();
-
-    useEffect(() => {
-        const scrollDiv = scrollRef.current;
-        if (!scrollDiv) return;
-
-        const handleScroll = () => {
-            const isAtBottom =
-                scrollDiv.scrollHeight -
-                    scrollDiv.scrollTop -
-                    scrollDiv.clientHeight <
-                100;
-            setIsAutoScroll(isAtBottom);
-        };
-
-        scrollDiv.addEventListener("scroll", handleScroll);
-        return () => scrollDiv.removeEventListener("scroll", handleScroll);
-    }, []);
-
-    useEffect(() => {
-        if (isAutoScroll && scrollRef.current) {
-            scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
-        }
-    }, [messages, isAutoScroll]);
-
     return (
-        <main className="flex flex-col w-full h-screen overflow-hidden">
-            <header key={id} className="text-gray-50 sticky top-0 w-full p-4">
-                ba2 Chatbot
-            </header>
-            <div
-                ref={scrollRef}
-                className="relative flex w-full flex-1 overflow-x-hidden overflow-y-scroll"
-            >
-                <div className="relative mx-auto flex flex-col flex-1 h-full w-full max-w-3xl">
-                    <div
-                        // ref={scrollRef}
-                        className="flex-1 flex flex-col gap-3 px-4 max-w-3xl mx-auto w-full pt-1"
-                    >
-                        {messages.map((message) => (
-                            <div key={message.id}>
-                                {message.role === "user" ? (
-                                    <Message
-                                        content={message.content}
-                                        date={parseDate(message.createdAt)}
-                                        role="user"
-                                    />
-                                ) : (
-                                    <div className="flex flex-col gap-2">
-                                        {parseThink(message.content)?.think && (
-                                            <Message
-                                                content={
-                                                    parseThink(message.content)
-                                                        .think
-                                                }
-                                                date={parseDate(
-                                                    message.createdAt
-                                                )}
-                                                role="think"
-                                                collapsible
-                                            />
-                                        )}
-                                        {parseThink(message.content)
-                                            ?.answer && (
-                                            <Message
-                                                content={
-                                                    parseThink(message.content)
-                                                        .answer
-                                                }
-                                                date={parseDate(
-                                                    message.createdAt
-                                                )}
-                                                role="assistant"
-                                            />
-                                        )}
-                                    </div>
-                                )}
-                            </div>
-                        ))}
-                        {error && (
-                            <div className="w-full rounded p-2 bg-red-500 text-white text-center cursor-pointer">
-                                {error.message}
-                                {error.stack}
-                            </div>
-                        )}
-                    </div>
-                    <TextField
-                        handleSubmit={handleSubmit}
-                        input={input}
-                        handleInputChange={handleInputChange}
-                        status={status}
-                        stop={stop}
-                        reload={reload}
-                    />
-                </div>
-            </div>
-        </main>
+        <div className="flex h-screen">
+            <Sidebar />
+            <ChatContainer />
+        </div>
     );
 }

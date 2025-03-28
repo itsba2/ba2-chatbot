@@ -1,5 +1,6 @@
 import { ChatRequestOptions } from "ai";
 import Button from "../common/Button";
+import { TbPlayerStop, TbReload, TbSend } from "react-icons/tb";
 
 interface TextFieldProps {
     handleSubmit: (
@@ -28,8 +29,12 @@ export default function TextField({
     reload,
 }: TextFieldProps) {
     return (
-        <div className="sticky bottom-0 w-full mx-auto bg-gray-200 dark:bg-slate-900 px-2 pb-4 pt-8">
-            <form role="form" onSubmit={handleSubmit} className="flex gap-2 h-[10rem]">
+        <div className="sticky bottom-0 w-full mx-auto px-2 pb-4 pt-8">
+            <form
+                role="form"
+                onSubmit={handleSubmit}
+                className="flex gap-2 h-[10rem]"
+            >
                 <textarea
                     onKeyDown={(e) => {
                         if (e.key === "Enter" && !e.shiftKey) {
@@ -40,7 +45,7 @@ export default function TextField({
                     value={input}
                     placeholder="Talk to me"
                     onChange={handleInputChange}
-                    className="w-5/6 resize-none max-h-[10rem] p-2 bg-gray-300 text-gray-900 rounded focus:outline-none focus:ring-0"
+                    className="w-5/6 resize-none max-h-[10rem] p-4 bg-paper border border-gray-500 rounded focus:outline-none focus:ring-0 overflow-auto"
                 />
                 <div className="w-1/6 flex flex-col gap-2">
                     <Button
@@ -50,49 +55,46 @@ export default function TextField({
                             status === "submitted" || status === "streaming"
                         }
                     >
-                        Send
+                        <TbSend className="icon" />
                     </Button>
                     <Button
                         onClick={stop}
-                        variant="primary"
+                        variant="secondary"
                         disabled={
                             status !== "submitted" && status !== "streaming"
                         }
                     >
-                        Stop
+                        <TbPlayerStop className="icon" />
                     </Button>
                     <Button
                         onClick={() => reload()}
                         variant="secondary"
                         disabled={status !== "error"}
                     >
-                        Retry
+                        <TbReload className="icon" />
                     </Button>
                 </div>
-{/* 
-                {status === "submitted" || status === "streaming" ? (
-                    <button
-                        onClick={stop}
-                        className="w-1/6 p-2 h-fit self-end cursor-pointer rounded bg-orange-500 hover:bg-orange-700 duration-200 text-white"
-                    >
-                        Stop
-                    </button>
-                ) : status === "error" ? (
-                    <button
-                        onClick={() => reload()}
-                        className="w-1/6 p-2 h-fit self-end cursor-pointer rounded bg-red-500 hover:bg-red-700 duration-200 text-white"
-                    >
-                        Retry
-                    </button>
-                ) : (
-                    <button
-                        type="submit"
-                        className="w-1/6 p-2 h-fit self-end cursor-pointer rounded bg-teal-500 hover:bg-teal-700 duration-200 text-white"
-                    >
-                        Send
-                    </button>
-                )} */}
             </form>
         </div>
     );
 }
+
+// {/* Input area */}
+// <div className="bg-white border-t p-4">
+// <form onSubmit={handleSendMessage} className="flex space-x-2">
+//     <input
+//         type="text"
+//         value={input}
+//         onChange={(e) => setInput(e.target.value)}
+//         placeholder="Type your message..."
+//         className="flex-1 border border-gray-300 rounded-md py-2 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+//     />
+//     <button
+//         type="submit"
+//         className="bg-indigo-600 text-white rounded-md p-2 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+//         disabled={!input.trim()}
+//     >
+//         <Send size={20} />
+//     </button>
+// </form>
+// </div>

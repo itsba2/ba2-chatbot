@@ -1,4 +1,4 @@
-import { MessageProps } from "@/utils/types";
+import { MessageProps } from "@/lib/utils/types";
 import { useState } from "react";
 
 export default function Message({
@@ -11,16 +11,16 @@ export default function Message({
     const [isCollapsed, setIsCollapsed] = useState(false);
     const roles = {
         user: "bg-green-100 text-left ml-auto",
-        assistant: "bg-gray-100 text-left mr-auto",
+        assistant: "bg-amber-100 text-left mr-auto",
         think: "bg-blue-100 text-left mr-auto",
     };
-    const styles = `flex flex-col w-full whitespace-pre-wrap p-4 text-gray-900 rounded md:max-w-5/6 ${roles[role]} ${className}`;
+    const styles = `flex flex-col w-full gap-2 whitespace-pre-wrap p-4 rounded md:max-w-5/6 ${roles[role]} ${className}`;
     return (
         <div className={styles}>
             <div className="flex justify-between items-center">
-                <div className="flex items-center gap-2">
-                    <span className="text-gray-700 font-semibold">{role}</span>
-                    <span className="text-gray-500 text-xs">{date}</span>
+                <div className="flex items-baseline gap-2">
+                    <span className="text-hint font-semibold">{role}</span>
+                    <span className="text-disabled text-sm">{date}</span>
                 </div>
                 {collapsible && (
                     <button

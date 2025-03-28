@@ -17,16 +17,17 @@ export default function Button({
 }: ButtonProps) {
     const variants = {
         enabled: {
-            primary: "bg-teal-500 hover:bg-teal-700 text-white cursor-pointer",
-            secondary: "bg-orange-500 hover:bg-orange-700 text-gray-900 cursor-pointer",
+            primary: "bg-primary hover:bg-primary-action text-onprimary cursor-pointer",
+            secondary:
+                "border border-onsecondary hover:bg-secondary-action text-onsecondary cursor-pointer",
         },
         disabled: {
-            primary: "bg-gray-300 text-gray-900 cursor-not-allowed",
-            secondary: "bg-gray-300 text-gray-900 cursor-not-allowed",
+            primary: "bg-surface text-disabled cursor-not-allowed",
+            secondary: "bg-surface text-disabled cursor-not-allowed",
         },
     };
     const state = disabled ? "disabled" : "enabled";
-    const styles = `${variants[state][variant]} rounded p-2 duration-150 ${className}`;
+    const styles = `${variants[state][variant]} rounded min-w-12 p-2 ease-in duration-150 ${className}`;
     return (
         <button
             type={type}
