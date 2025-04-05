@@ -6,23 +6,23 @@
 } */
 
 @theme {
-  /* background */
-  --color-background: var(--color-stone-200);
-  --color-paper: var(--color-stone-100);
-  --color-paper-action: var(--color-stone-200);
-  --color-surface: var(--color-stone-300);
-  --color-surface-action: var(--color-stone-400);
-  /* text */
-  --color-foreground: var(--color-stone-950);
-  --color-hint: var(--color-stone-700);
-  --color-disabled: var(--color-stone-500);
-  /* accent */
-  --color-primary: var(--color-sky-600);
-  --color-primary-action: var(--color-sky-700);
-  --color-onprimary: var(--color-neutral-50);
-  --color-secondary: var(--color-violet-200);
-  --color-secondary-action: var(--color-violet-300);
-  --default-font-family: var(--font-inter);
+    /* background */
+    --color-background: var(--color-stone-200);
+    --color-paper: var(--color-stone-100);
+    --color-paper-action: var(--color-stone-200);
+    --color-surface: var(--color-stone-300);
+    --color-surface-action: var(--color-stone-400);
+    /* text */
+    --color-foreground: var(--color-stone-950);
+    --color-hint: var(--color-stone-700);
+    --color-disabled: var(--color-stone-500);
+    /* accent */
+    --color-primary: var(--color-sky-600);
+    --color-primary-action: var(--color-sky-700);
+    --color-onprimary: var(--color-neutral-50);
+    --color-secondary: var(--color-emerald-200);
+    --color-secondary-action: var(--color-emerald-300);
+    --default-font-family: var(--font-inter);
 }
 /* 
 @media (prefers-color-scheme: dark) {
@@ -32,13 +32,33 @@
   }
 } */
 body {
-  color: var(--color-foreground);
+    color: var(--color-foreground);
 }
 
 @layer components {
-  .icon {
-    margin-inline: auto;
-    font-size: var(--text-2xl);
-    line-height: var(--text-2xl--line-height);
-  }
+    .icon {
+        margin-inline: auto;
+        font-size: var(--text-2xl);
+        line-height: var(--text-2xl--line-height);
+    }
+}
+
+@utility debug {
+    div,
+    main,
+    section {
+        @apply border border-red-400;
+    }
+
+    p,
+    span {
+        @apply border border-teal-400;
+    }
+
+    a,
+    button,
+    input,
+    textarea {
+        @apply border border-purple-400;
+    }
 }

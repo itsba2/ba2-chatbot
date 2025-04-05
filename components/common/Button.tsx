@@ -17,7 +17,8 @@ export default function Button({
 }: ButtonProps) {
     const variants = {
         enabled: {
-            primary: "bg-primary hover:bg-primary-action text-onprimary cursor-pointer",
+            primary:
+                "bg-primary hover:bg-primary-action text-onprimary cursor-pointer",
             secondary:
                 "border border-onsecondary hover:bg-secondary-action text-onsecondary cursor-pointer",
         },

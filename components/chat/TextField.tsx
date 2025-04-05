@@ -29,7 +29,7 @@ export default function TextField({
     reload,
 }: TextFieldProps) {
     return (
-        <div className="sticky bottom-0 w-full mx-auto px-2 pb-4 pt-8">
+        <div className="sticky bottom-0 w-full bg-background mx-auto px-2 pb-4 pt-8">
             <form
                 role="form"
                 onSubmit={handleSubmit}
@@ -47,7 +47,7 @@ export default function TextField({
                     onChange={handleInputChange}
                     className="w-5/6 resize-none max-h-[10rem] p-4 bg-paper border border-gray-500 rounded focus:outline-none focus:ring-0 overflow-auto"
                 />
-                <div className="w-1/6 flex flex-col gap-2">
+                <div className="w-1/6 flex flex-col gap-2 justify-center">
                     <Button
                         type="submit"
                         variant="primary"

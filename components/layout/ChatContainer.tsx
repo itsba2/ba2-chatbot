@@ -1,20 +1,11 @@
-import { useAppDispatch, useAppSelector } from "@/lib/store/hooks";
-import Button from "../common/Button";
+import { useAppSelector } from "@/lib/store/hooks";
 import { RootState } from "@/lib/store/store";
-import { setModel } from "@/lib/store/llm/llmSlice";
-import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useChat } from "@ai-sdk/react";
 import Message from "../chat/Message";
 import { parseDate, parseThink } from "@/lib/utils/parsers";
 import TextField from "../chat/TextField";
-import Select from "../common/Select";
-import { setSidebarOpen } from "@/lib/store/layout/layoutSlice";
 import Topbar from "./Topbar";
-
-// interface ChatContainerProps {
-//     sidebarOpen: boolean;
-//     setSidebarOpen: Dispatch<SetStateAction<boolean>>;
-// }
 
 export default function ChatContainer() {
     const { model: selectedModel } = useAppSelector(
@@ -33,7 +24,7 @@ export default function ChatContainer() {
         error,
         reload,
         id,
-    } = useChat({ api: `/api/${selectedModel}/chat` });
+    } = useChat({ api: `/api/chats/${selectedModel}` });
 
     useEffect(() => {
         if (isAutoScroll && scrollRef.current) {
@@ -60,7 +51,7 @@ export default function ChatContainer() {
 
     return (
         <div className="flex-1 flex flex-col h-full overflow-hidden">
-            <Topbar selectedModel={selectedModel} />
+            <Topbar selectedModel={selectedModel} chatId={id} />
             <main className="flex flex-col w-full h-screen overflow-hidden bg-background">
                 <div
                     ref={scrollRef}
