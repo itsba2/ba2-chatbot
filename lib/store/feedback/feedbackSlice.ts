@@ -1,26 +1,44 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, nanoid, PayloadAction } from "@reduxjs/toolkit";
+import { FeedbackItem } from "@/lib/utils/types";
 
 interface FeedbackState {
-    message: string;
-    level: "error" | "warning" | "info" | "success";
+    items: FeedbackItem[];
 }
 
 const initialState: FeedbackState = {
-    message: "Something went wrong.",
-    level: "error",
+    items: [],
 };
 
 const feedbackSlice = createSlice({
     name: "feedback",
     initialState,
     reducers: {
-        setFeedback: (state, action: PayloadAction<FeedbackState>) => {
-            state.level = action.payload.level;
-            state.message = action.payload.message;
+        addFeedback: {
+            reducer: (state, action: PayloadAction<FeedbackItem>) => {
+                state.items.push(action.payload);
+            },
+            prepare: (feedback: Omit<FeedbackItem, "id" | "createdAt">) => ({
+                payload: {
+                    ...feedback,
+                    id: nanoid(),
+                    createdAt: Date.now(),
+                },
+            }),
+        },
+        removeFeedback: (state, action: PayloadAction<string>) => {
+            console.log(action.type)
+            console.log(action.payload)
+            state.items = state.items.filter(
+                (item) => item.id !== action.payload
+            );
+        },
+        clearAllFeedbacks: (state) => {
+            state.items = [];
         },
     },
 });
 
-export const { setFeedback } = feedbackSlice.actions;
+export const { addFeedback, removeFeedback, clearAllFeedbacks } =
+    feedbackSlice.actions;
 
 export default feedbackSlice.reducer;
